@@ -1,9 +1,11 @@
 from flask_restful import Resource
 from flask import request
+from flask_jwt_extended import jwt_required
 
 
 class Event(Resource):
     @classmethod
+    @jwt_required()
     def get(cls, id_: int) -> any:
         event = {
             'id': id_,
@@ -14,6 +16,7 @@ class Event(Resource):
         return event
 
     @classmethod
+    @jwt_required()
     def post(cls, id_: int) -> any:
         event_json = request.get_json()
         event_json['id'] = id_
